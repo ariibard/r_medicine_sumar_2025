@@ -1,0 +1,148 @@
+---
+title: "Optimizing Public Healthcare Cost Recovery with R"
+subtitle: "A Use Case from Argentina"
+format: clean-revealjs
+html-math-method:
+  method: mathjax
+  url: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+author:
+  - name: Ariana Bardauil
+    email: abardauil@buenosaires.gob.ar
+    affiliations: Buenos Aires City Government
+  - name: Dacio Martinez
+    email: dmartinez@buenosaires.gob.ar
+    affiliations: Buenos Aires City Government
+date: last-modified
+---
+
+## Information and Health Statistics Management Office
+### Ministry of Health of the City of Buenos Aires
+
+::::: columns
+::: {.column width="60%"}
+![](imagenes/2.png)
+:::
+
+::: {.column width="40%"}
+![](imagenes/caba.gif)
+:::
+:::::
+
+## Information and Health Statistics Management Office
+### Ministry of Health of the City of Buenos Aires
+
+::::: columns
+::: {.column width="60%"}
+![](imagenes/1.png)
+:::
+
+::: {.column width="40%"}
+![](imagenes/caba.gif)
+:::
+:::::
+
+## Argentina's Healthcare System
+
+![](imagenes/5.png){fig-align="center"}
+
+::: notes
+:::
+
+## Argentina's Healthcare System
+
+![](imagenes/6.png){fig-align="center"}
+
+::: notes
+:::
+
+## SUMAR Program
+### A Result-Based Health Policy
+
+SUMAR is a [**national policy**]{.fg style="--col: #e64173"} in Argentina aimed at [improving financing]{.fg style="--col: #e64173"} for the [uninsured population]{.fg style="--col: #e64173"} through a [result-based funding model]{.fg style="--col: #e64173"}.
+
+Financed with [**World Bank**]{.fg style="--col: #e64173"} support, it transfers funds to provinces based on:
+
+1.  Identifying people with [exclusive public coverage]{.fg style="--col: #e64173"}
+2.  Providing [essential health services]{.fg style="--col: #e64173"} (Basic Effective Coverage – CEB)
+3.  Achieving [health outcomes]{.fg style="--col: #e64173"} tracked by [tracer indicators]{.fg style="--col: #e64173"}
+
+::: notes
+:::
+
+## Infrastructure and Automation in Buenos Aires City
+
+![](imagenes/dw.png){fig-align="center"}
+
+## Our Rol in GOGIES {.smaller}
+### In Buenos Aires City, our team plays a central role in automating SUMAR processes.
+
+#### We focus on:
+
+-   Identifying patients with **priority conditions**
+-   Verifying services through the `Health Information System (HIS)`
+
+#### Our main outputs:
+
+-   [PDF invoices]{.fg style="--col: #e64173"} ("cuasifacturas")
+
+-   Weekly Excel reports - Performance indicator summaries
+
+#### The process involves three key stages:
+
+1.  Enrollment
+2.  Detection of Basic Effective Coverage services
+3.  Analysis of performance indicators
+
+## Tools
+### R-based, open-source ecosystem for scalable health data processing
+
+![](imagenes/herramientas.png){fig-align="center"}
+
+::: {.callout-note} 
+### `agiseR` 
+
+is an internal R package developed by our team to facilitate access to local databases and automate reporting workflows.
+:::
+
+## Automated Detection and Reporting {.smaller}
+### of Health Services for the SUMAR Program
+
+![](imagenes/circuito.png){fig-align="center" width="669"} 
+
+::: {.callout-note} 
+### Beneficiaries
+
+The identification of beneficiaries is based on two main national sources: (1) PUCO (Federal Unified Register of Beneficiaries) (2) SUMAR program registry provided by the National Ministry of Health 
+:::
+
+## Impact
+### Time series of detected services, highlighting the scalability and increasing coverage of the automation process.
+
+```{r echo = FALSE}
+library(tidyverse)
+library(lubridate)
+library(highcharter)
+
+grafico <- readRDS("oct_2020_abril_2025.rds") %>% filter(fecha_mes >= as_date("2021-01-01"))
+
+hchart(
+  grafico,
+  type = "line",
+  hcaes(x = fecha_mes, y = n)
+) |>
+  hc_title(text = "<b>Number of services detected</b><br>by the automation project") |>
+  hc_subtitle(text = "From January 2021 to April 2025") |>
+  hc_yAxis(title = list(text = "Number of services"),
+           labels = list(format = "{value:,.0f}"),
+           gridLineWidth = 1) |>
+  hc_xAxis(title = list(text = "Date"),
+           type = "datetime",
+           labels = list(format = "{value:%b %Y}")) |>
+  hc_tooltip(pointFormat = "<b>{point.y:,.0f}</b> services<br/>Date: {point.x:%B %Y}") |>
+  hc_credits(enabled = TRUE, text = "Own elaboration") |>
+  hc_exporting(enabled = TRUE) |>
+  hc_chart(zoomType = "x") |>
+  hc_add_theme(hc_theme_bloom())
+```
+
+# Thanks
