@@ -62,7 +62,7 @@ SUMAR is a [**national policy**]{.fg style="--col: #e64173"} in Argentina aimed 
 
 Financed with [**World Bank**]{.fg style="--col: #e64173"} support, it transfers funds to provinces based on:
 
-1.  Identifying people with [exclusive public coverage]{.fg style="--col: #e64173"}
+1.  Identifying people with [public coverage alone]{.fg style="--col: #e64173"}
 2.  Providing [essential health services]{.fg style="--col: #e64173"} (Basic Effective Coverage – CEB)
 3.  Achieving [health outcomes]{.fg style="--col: #e64173"} tracked by [tracer indicators]{.fg style="--col: #e64173"}
 
