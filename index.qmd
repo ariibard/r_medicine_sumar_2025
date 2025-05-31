@@ -12,7 +12,7 @@ author:
   - name: Dacio Martinez
     email: dmartinez@buenosaires.gob.ar
     affiliations: Buenos Aires City Government
-date: last-modified
+
 ---
 
 ## Information and Health Statistics Management Office
